@@ -1,0 +1,24 @@
+{
+  "name": "xero-maker",
+  "version": "1.0.0",
+  "description": "Xero quote creation tool for Claude Code",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "auth": "tsx lib/oauth-helper.ts",
+    "test": "tsx lib/test-quote.ts"
+  },
+  "keywords": ["xero", "quotes", "accounting"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "xero-node": "^13.2.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2"
+  }
+}

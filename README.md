@@ -7,7 +7,7 @@ Create Xero quotes using Claude Code with simple verbal descriptions.
 This project provides a Claude Code skill that allows you to create quotes in Xero by simply describing them in natural language. Claude will parse your description, structure the data, and create the quote via Xero's API.
 
 **Example usage:**
-> "Create a Xero quote for Acme Corp: 10 consulting hours at £150/hour, 5 hours travel at £75/hour"
+> "Create a Xero quote for Acme Corp: 10 consulting hours at $150/hour, 5 hours travel at $75/hour"
 
 Claude will automatically:
 - Parse the quote details
@@ -115,29 +115,29 @@ Create a Xero quote for [customer name]: [items with quantities and prices]
 
 **Basic quote:**
 ```
-Create a Xero quote for ABC Ltd: 10 widgets at £50 each
+Create a Xero quote for ABC Ltd: 10 widgets at $50 each
 ```
 
 **Multiple items:**
 ```
 Create a quote for Tech Solutions:
-- Website design: £2500
-- Hosting setup: £250
-- 5 hours training at £100/hour
+- Website design: $2500
+- Hosting setup: $250
+- 5 hours training at $100/hour
 ```
 
 **With additional details:**
 ```
 Create a Xero quote for Sarah's Bakery (email: hello@sarahsbakery.com):
-- Custom website: £3500
-- Logo design: £500
+- Custom website: $3500
+- Logo design: $500
 Reference: PROJECT-2025-001
 ```
 
 **From conversation:**
 ```
 I need to quote a client for consulting work. It's for Acme Corp,
-20 hours at £95 per hour plus 5 hours travel time at £50 per hour.
+20 hours at $95 per hour plus 5 hours travel time at $50 per hour.
 ```
 
 ### What Claude Will Do

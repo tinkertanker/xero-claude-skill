@@ -121,10 +121,10 @@ export function formatQuoteSummary(input: ParsedQuoteInput): string {
   input.lineItems.forEach((item, index) => {
     const lineTotal = item.quantity * item.unitAmount;
     summary += `  ${index + 1}. ${item.description}\n`;
-    summary += `     Qty: ${item.quantity} × £${item.unitAmount.toFixed(2)} = £${lineTotal.toFixed(2)}\n`;
+    summary += `     Qty: ${item.quantity} × $${item.unitAmount.toFixed(2)} = $${lineTotal.toFixed(2)}\n`;
   });
 
-  summary += `\nSubtotal: £${totals.subtotal.toFixed(2)}`;
+  summary += `\nSubtotal: $${totals.subtotal.toFixed(2)}`;
 
   if (input.reference) {
     summary += `\nReference: ${input.reference}`;
@@ -139,7 +139,7 @@ export function formatQuoteSummary(input: ParsedQuoteInput): string {
 
 /**
  * Parse common currency formats to decimal
- * Examples: "£50", "$100.50", "25.99", "1,500.00"
+ * Examples: "$50", "$100.50", "25.99", "1,500.00"
  */
 export function parseCurrency(value: string | number): number {
   if (typeof value === 'number') {
@@ -147,7 +147,7 @@ export function parseCurrency(value: string | number): number {
   }
 
   // Remove currency symbols and commas
-  const cleaned = value.replace(/[£$€,]/g, '').trim();
+  const cleaned = value.replace(/[$€,]/g, '').trim();
   const parsed = parseFloat(cleaned);
 
   if (isNaN(parsed)) {

@@ -102,7 +102,18 @@ export class XeroService {
    */
   private async refreshToken(): Promise<void> {
     try {
-      const validTokenSet = await this.client.refreshToken();
+      if (!this.credentials?.tokenSet.refresh_token) {
+        throw new Error('No refresh token available');
+      }
+
+      const validTokenSet = await this.client.refreshWithRefreshToken(
+        CLIENT_ID!,
+        CLIENT_SECRET!,
+        this.credentials.tokenSet.refresh_token
+      );
+
+      // Update the client with new token set
+      await this.client.setTokenSet(validTokenSet);
 
       // Save updated tokens
       if (this.credentials) {
@@ -227,7 +238,7 @@ export class XeroService {
       return {
         quoteID: createdQuote.quoteID || '',
         quoteNumber: createdQuote.quoteNumber || '',
-        url: `https://go.xero.com/AccountsReceivable/Edit.aspx?InvoiceID=${createdQuote.quoteID}`,
+        url: `https://go.xero.com/app/!mg--q/quotes/view/${createdQuote.quoteID}`,
       };
     } catch (error) {
       throw new Error(

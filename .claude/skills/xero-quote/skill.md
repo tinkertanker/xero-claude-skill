@@ -119,9 +119,15 @@ try {
 
 **Success:**
 - Inform the user the quote was created
-- Provide the quote number and Xero URL
+- **ALWAYS provide the clickable Xero URL link** so the user can click directly to view the quote
+- Provide the quote number and Quote ID
 - Note that the quote is created as DRAFT status in Xero
 - Explain they can edit or mark it as SENT in Xero
+
+**When creating multiple quotes:**
+- Display a summary table with all quote numbers and links
+- Make each link clickable for easy access
+- Show the customer name and attention/reference details
 
 **Failure:**
 - If contact not found, the system will create it automatically
@@ -144,7 +150,9 @@ Common errors and solutions:
 
 When parsing user input:
 
-1. **Currency amounts**: Accept "£50", "$100", "25.99", "1,500" - strip symbols and commas
+1. **Currency amounts**: Accept "$50", "100", "25.99", "1,500" - strip symbols and commas
+   - **IMPORTANT: All prices should be in dollars ($), NOT pounds (£)**
+   - Display amounts with $ symbol (e.g., $1,850.00, not £1,850.00)
 2. **Quantities**: Accept "10", "2.5", "1/2" (as 0.5)
 3. **Contact lookup**: System will search existing contacts or create new ones
 4. **Multiple items**: Parse lists, comma-separated, or numbered items
@@ -152,12 +160,12 @@ When parsing user input:
 
 ## Example Complete Workflow
 
-User says: *"Create a Xero quote for Acme Ltd: 5 hours consulting at £150/hour, 2 hours travel at £75/hour"*
+User says: *"Create a Xero quote for Acme Ltd: 5 hours consulting at $150/hour, 2 hours travel at $75/hour"*
 
 1. Parse:
    - Contact: "Acme Ltd"
-   - Item 1: "Consulting" × 5 @ £150
-   - Item 2: "Travel" × 2 @ £75
+   - Item 1: "Consulting" × 5 @ $150
+   - Item 2: "Travel" × 2 @ $75
 
 2. Validate: All required fields present ✓
 
@@ -167,16 +175,23 @@ User says: *"Create a Xero quote for Acme Ltd: 5 hours consulting at £150/hour,
 
    Line Items:
      1. Consulting
-        Qty: 5 × £150.00 = £750.00
+        Qty: 5 × $150.00 = $750.00
      2. Travel
-        Qty: 2 × £75.00 = £150.00
+        Qty: 2 × $75.00 = $150.00
 
-   Subtotal: £900.00
+   Subtotal: $900.00
    ```
 
 4. Create quote in Xero
 
-5. Return: "Quote #QU-0001 created successfully! View at: [URL]"
+5. Return:
+   ```
+   Quote #QU-0001 created successfully!
+
+   View at: https://go.xero.com/AccountsReceivable/Edit.aspx?InvoiceID=...
+   ```
+
+   **Always provide the clickable URL so the user can access the quote directly.**
 
 ## Running the Code
 
@@ -194,4 +209,5 @@ Or execute the TypeScript code directly using the Bash tool with tsx.
 - Contact will be created automatically if it doesn't exist
 - Account code defaults to "200" (standard sales account)
 - Token refresh happens automatically when needed
-- All amounts should be in pounds (£) as per UK format
+- **All amounts should be in dollars ($), NOT pounds (£)**
+- **Always provide clickable Xero URLs when quotes are created**

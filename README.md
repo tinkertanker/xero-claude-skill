@@ -145,7 +145,7 @@ I need to quote a client for consulting work. It's for Acme Corp,
 The skill understands various input formats:
 
 - **Quantities:** "10", "2.5", "1/2"
-- **Prices:** "£50", "$100", "25.99", "1,500"
+- **Prices:** "$50", "$100", "25.99", "1,500"
 - **Descriptions:** Any text
 - **Dates:** "2025-11-06" or defaults to today
 
@@ -181,9 +181,9 @@ For technical details, see the code in `.claude/skills/xero-quote/lib/`
 
 ## Troubleshooting
 
-**Authentication issues:** Run `npm run auth` to re-authorize
-**Quotes not appearing:** Check Xero → Sales → Quotes (they're created as DRAFT)
-**Token errors:** Tokens refresh automatically; if it fails, run `npm run auth`
+- **Authentication issues:** Run `npm run auth` to re-authorize
+- **Quotes not appearing:** Check Xero → Sales → Quotes (they're created as DRAFT)
+- **Token errors:** Tokens refresh automatically; if it fails, run `npm run auth`
 
 ## Notes
 
@@ -194,4 +194,4 @@ For technical details, see the code in `.claude/skills/xero-quote/lib/`
 
 ## License
 
-ISC
+MIT

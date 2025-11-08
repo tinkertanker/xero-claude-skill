@@ -170,110 +170,27 @@ xero-maker/
 └── tsconfig.json
 ```
 
-## API Reference
+## How It Works
 
-### XeroService
+The skill uses:
+- **XeroService** - Handles OAuth, API calls, and quote creation
+- **Quote Mapper** - Parses natural language input and validates data
+- **OAuth Helper** - One-time setup script for authentication
 
-Main service class for interacting with Xero:
-
-```typescript
-import { XeroService } from './.claude/skills/xero-quote/lib/xero-client.js';
-
-const xero = new XeroService();
-await xero.initialize();
-
-// Create a quote
-const result = await xero.createQuote({
-  contactName: 'Acme Ltd',
-  lineItems: [
-    { description: 'Consulting', quantity: 10, unitAmount: 150 }
-  ]
-});
-
-// Find a contact
-const contact = await xero.findContact('Acme Ltd');
-
-// Mark quote as sent
-await xero.markQuoteAsSent(quoteID);
-```
-
-### Quote Mapper Utilities
-
-Helper functions for data parsing:
-
-```typescript
-import {
-  validateQuoteData,
-  toQuoteData,
-  formatQuoteSummary,
-  parseCurrency,
-  parseQuantity
-} from './.claude/skills/xero-quote/lib/quote-mapper.js';
-
-// Validate quote data
-const validation = validateQuoteData(quoteInput);
-if (!validation.valid) {
-  console.error(validation.errors);
-}
-
-// Convert to Xero format
-const quoteData = toQuoteData(quoteInput);
-
-// Display summary
-console.log(formatQuoteSummary(quoteInput));
-
-// Parse currency: "£50" → 50
-const amount = parseCurrency('£50.00');
-
-// Parse quantity: "2.5" → 2.5
-const qty = parseQuantity('2.5');
-```
+For technical details, see the code in `.claude/skills/xero-quote/lib/`
 
 ## Troubleshooting
 
-### "Failed to initialize Xero client"
-**Solution:** Run `npm run auth` to complete OAuth setup
+**Authentication issues:** Run `npm run auth` to re-authorize
+**Quotes not appearing:** Check Xero → Sales → Quotes (they're created as DRAFT)
+**Token errors:** Tokens refresh automatically; if it fails, run `npm run auth`
 
-### "No credentials found"
-**Solution:** Ensure `credentials.json` exists after running `npm run auth`
+## Notes
 
-### "Access token expired"
-**Solution:** Tokens refresh automatically. If it fails, run `npm run auth` again
-
-### "Contact not found"
-**Note:** The system automatically creates new contacts if they don't exist
-
-### "Invalid currency format"
-**Solution:** Ensure prices are numeric. The skill strips £, $, € symbols automatically
-
-### Quotes not appearing in Xero
-**Check:**
-- Is the quote created as DRAFT? Check in Xero → Sales → Quotes
-- Verify the Tenant ID in `.env` matches your Xero organisation
-
-## Security Notes
-
-- `credentials.json` and `.env` are gitignored - never commit these files
-- Access tokens expire after 30 minutes (auto-refreshed)
-- Refresh tokens are valid for 60 days
-- OAuth scopes requested:
-  - `accounting.transactions` - Create/read quotes
-  - `accounting.contacts` - Manage contacts
-  - `offline_access` - Token refresh capability
-
-## Limitations
-
-- Quotes are always created as DRAFT status (Xero API limitation)
-- Cannot send quotes by email via API (manual only in Xero)
-- Requires Standard or Adviser level Xero permissions
-- Token refresh required every 60 days (automatic when using the skill)
-
-## Support
-
-For issues or questions:
-1. Check the troubleshooting section above
-2. Review Xero API docs: [https://developer.xero.com/documentation/api/accounting/quotes](https://developer.xero.com/documentation/api/accounting/quotes)
-3. Verify your app settings at: [https://developer.xero.com/app/manage](https://developer.xero.com/app/manage)
+- Credentials are gitignored - never commit `.env` or `credentials.json`
+- Tokens auto-refresh every 30 minutes; re-auth needed every 60 days
+- Quotes created as DRAFT (Xero API limitation)
+- Requires Standard or Adviser Xero permissions
 
 ## License
 

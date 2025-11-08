@@ -15,32 +15,14 @@ Claude will automatically:
 - Create the quote in Xero
 - Return the quote number and URL
 
-## Quick Start
+## Setup Instructions
 
-Already set up and ready to use! To create a quote, simply tell Claude:
-
-```
-Create a Xero quote for [customer]: [items with quantities and prices]
-```
-
-**For new installations:**
-
-1. Clone this repo
-2. `npm install`
-3. Copy `.env.example` to `.env` and add your Xero API credentials
-4. Run `npm run auth` to authorize with Xero
-5. Test with `npm test`
-
-That's it! Start creating quotes with natural language.
-
-## Prerequisites
+### Prerequisites
 
 1. **Xero Account** - Free account at [xero.com](https://xero.com)
 2. **Xero Developer App** - Register at [developer.xero.com](https://developer.xero.com)
 3. **Node.js** - Version 18 or higher
 4. **Claude Code** - Latest version
-
-## Setup Instructions
 
 ### 1. Install Dependencies
 
@@ -100,6 +82,8 @@ npm test
 ```
 
 This will create a sample quote in your Xero account. Check your Xero dashboard to see it!
+
+**You're ready!** Now you can create quotes by simply talking to Claude.
 
 ## Usage with Claude Code
 
